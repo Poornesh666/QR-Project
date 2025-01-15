@@ -3,13 +3,16 @@ const qr = require("qr-image");
 const path = require("path");
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Use the environment variable for dynamic port (necessary for platforms like Glitch)
-const PORT = process.env.PORT || 3000;  // Default to 3000 for local testing
-
-// Middleware to serve static files (like HTML, CSS, JS)
+// Middleware to serve static files
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
+
+// Root route to display a welcome message or home page
+app.get("/", (req, res) => {
+  res.send("Welcome to the QR Code Generator!");
+});
 
 // Route to generate QR code
 app.post("/generate", (req, res) => {
@@ -17,7 +20,7 @@ app.post("/generate", (req, res) => {
   if (!text) {
     return res.status(400).send("Text is required");
   }
-  const qrCode = qr.imageSync(text, { type: "png" }); // Generate QR code
+  const qrCode = qr.imageSync(text, { type: "png" });
   res.setHeader("Content-Type", "image/png");
   res.send(qrCode); // Send QR code image as response
 });
