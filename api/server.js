@@ -5,13 +5,13 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to serve static files
-app.use(express.static(path.join(__dirname, "public")));
+// Serve static files from the public folder
+app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.json());
 
-// Root route to display a welcome message or home page
+// Route to serve the index.html file
 app.get("/", (req, res) => {
-  res.send("Welcome to the QR Code Generator!");
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
 // Route to generate QR code

@@ -8,7 +8,7 @@ document.getElementById("qrForm").addEventListener("submit", async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ text })
   });
 
   if (response.ok) {
@@ -20,14 +20,14 @@ document.getElementById("qrForm").addEventListener("submit", async (e) => {
     qrCodeImg.src = qrCodeUrl;
     qrCodeImg.alt = "QR Code";
 
-    // Create a download button
+    // Create a download link
     const downloadLink = document.createElement("a");
     downloadLink.href = qrCodeUrl;
-    downloadLink.download = "qr-code.png";  // Set the default filename for the download
+    downloadLink.download = "qr-code.png";  // Set the default filename
     downloadLink.textContent = "Download QR Code";
 
     const qrCodeDiv = document.getElementById("qrCode");
-    qrCodeDiv.innerHTML = "";  // Clear previous QR code (if any)
+    qrCodeDiv.innerHTML = "";  // Clear previous QR code
     qrCodeDiv.appendChild(qrCodeImg);
     qrCodeDiv.appendChild(downloadLink);
   } else {
